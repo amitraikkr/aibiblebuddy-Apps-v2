@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Bible Buddy for Kids</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        h1, h2, a {
+            color: #b37d00;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .logo {
+            width: 70px; 
+            height: 70px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+        }
+        .nav-link {
+            background-color: #b37d00; 
+            color: white; 
+            padding: 10px 15px; 
+            margin-left: 10px; 
+            border-radius: 5px; 
+        }
+        .nav-link:hover {
+            background-color: #865c00; 
+        }
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .submit-button {
+            background-color: #b37d00;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .submit-button:hover {
+            background-color: #865c00;
+        }
+        .donation-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: .5px solid #ddd;
+            border-radius: 8px;
+        }
+        .donation-section h2 {
+            font-size: 1.5rem;
+        }
+        .donation-section p {
+            font-size: 1rem;
+        }
+        .donation-button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .donation-button:hover {
+            background-color: #218838;
+        }
+    </style>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="flex justify-between items-center bg-gray-100 p-1">
+        <a href="index.html"><span class="text-xl font-bold"><img src="images/mylogo.png" alt="Bible Buddy Logo" class="logo"></span></a>
+        <span id="loggedInUser" class="hidden">Welcome, <span id="username"></span></span>
+        <div id="menuLinks" class="flex flex-grow justify-end">
+            <a href="chat.html" class="nav-link hidden" id="chatLink">Bible Buddy</a>
+            <a href="stories.html" class="nav-link" id="storiesLink">Stories</a>
+            <a href="contacts.html" class="nav-link" id="contactsLink">Contact Us</a>
+            <a href="javascript:void(0)" id="signInLink" class="nav-link">Sign-In</a>
+            <a href="javascript:void(0)" id="logoutLink" class="nav-link hidden">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Contact Form Section -->
+    <div class="container mx-auto p-4">
+        <h1 class="text-4xl font-bold mb-4">Contact Us</h1>
+        <p class="mb-4">We would love to hear from you! Please fill out this form and we will get in touch with you shortly.</p>
+        
+        <form id="contactForm">
+            <input type="text" name="name" placeholder="Your Name" class="form-input" required>
+            <input type="email" name="email" placeholder="Your Email" class="form-input" required>
+            <textarea name="message" placeholder="Your Message" class="form-textarea" required></textarea>
+            <button type="submit" class="submit-button">Send Message</button>
+        </form>
+        <span id="responseMessage" class="response-message"></span> <!-- This will display the message -->
+    </div>
+
+    <!-- Donation Section -->
+    <div class="container mx-auto p-4 donation-section">
+        <h2 class="text-3xl font-bold mb-4">Support Us</h2>
+        <p class="mb-4">If you would like to support our mission, please consider making a donation. Your generosity helps us continue our work.</p>
+        <button id="donateButton" class="donation-button">Donate</button>
+    </div>
+
+    <footer class="bg-white-200 text-gray-400">
+        &nbsp;&nbsp;&nbsp; &copy;2024 aibiblebuddy.online. All rights reserved.
+    </footer>
+
+   <!-- <script type="module" src="scripts/auth.js"></script> -->
+
+    <script type="module">
+        import config from './scripts/config.js';
+        import { getCookie } from './scripts/auth.js';
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            let loggedUser;
+            if(config.envType === 'dev'){
+                loggedUser = localStorage.getItem('loggedInUser');
+            } else {
+                loggedUser = getCookie('loggedInUser');
+            }
+
+            if (loggedUser) {
+                document.getElementById('loggedInUser').classList.remove('hidden');
+                document.getElementById('username').textContent = loggedUser;
+                document.getElementById('signInLink').classList.add('hidden');
+                document.getElementById('logoutLink').classList.remove('hidden');
+                document.getElementById('chatLink').classList.remove('hidden');
+                //document.getElementById('storiesLink').classList.remove('hidden');
+                //document.getElementById('contactsLink').classList.remove('hidden');
+            }
+        });
+
+        document.getElementById('logoutLink').addEventListener('click', function() {
+            if (config.envType === 'dev'){
+                localStorage.removeItem('loggedInUser');
+            } else {
+                deleteCookie('loggedInUser');
+            }
+            document.getElementById('loggedInUser').classList.add('hidden');
+            document.getElementById('username').textContent = '';
+            document.getElementById('signInLink').classList.remove('hidden');
+            document.getElementById('logoutLink').classList.add('hidden');
+            document.getElementById('chatLink').classList.remove('hidden');
+            //document.getElementById('contactsLink').classList.add('hidden');
+        });
+
+        // Handle form submission and send email via API
+        document.getElementById('contactForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevents the default form submission
+
+            const apiKey = config.emailApiKey;
+            
+            const name = document.querySelector('input[name="name"]').value;
+            const email = document.querySelector('input[name="email"]').value;
+            const message = document.querySelector('textarea[name="message"]').value;
+
+            const response = await fetch('https://wa99s928bf.execute-api.us-east-2.amazonaws.com/prod/email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': apiKey,
+                },
+                body: JSON.stringify({
+                    from: email,
+                    subject: `Message from ${name}`,
+                    body_text: message,
+                    body_html: `<p>From: ${email}</p><p>Message: ${message}</p>`
+                })
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                document.getElementById('responseMessage').textContent = 'Email has been sent successfully!';
+            } else {
+                document.getElementById('responseMessage').textContent = `Error: ${result.message}`;
+            }
+        });
+
+        // Stripe integration
+        const stripe = Stripe('your-publishable-key-here');
+
+        document.getElementById('donateButton').addEventListener('click', async () => {
+            const { error } = await stripe.redirectToCheckout({
+                lineItems: [{price: 'price_1HQ7tHJ3RQ32NSO8V3Oq6iB6', quantity: 1}],
+                mode: 'payment',
+                successUrl: window.location.origin + '/success.html',
+                cancelUrl: window.location.origin + '/cancel.html',
+            });
+            if (error) {
+                console.error('Error redirecting to Stripe Checkout:', error);
+            }
+        });
+    </script>
+ 
+</body>
+</html>

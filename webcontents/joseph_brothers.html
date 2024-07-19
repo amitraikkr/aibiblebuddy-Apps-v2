@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bible Buddy for Kids</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        h1, h2, a {
+            color: #b37d00;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .logo {
+            width: 70px; 
+            height: 70px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+        }
+        .nav-link {
+            background-color: #b37d00; 
+            color: white; 
+            padding: 10px 15px; 
+            margin-left: 10px; 
+            border-radius: 5px; 
+        }
+        .nav-link:hover {
+            background-color: #865c00; 
+        }
+        .story-container {
+            display: flex;
+            flex-direction: column;
+        }
+        @media (min-width: 768px) {
+            .story-container {
+                flex-direction: row;
+            }
+            .story-container:nth-child(even) {
+                flex-direction: row-reverse;
+            }
+        }
+        .story-image, .story-text {
+            flex: 1;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="flex justify-between items-center bg-gray-100 p-1">
+        <a href="index.html"><span class="text-xl font-bold"><img src="images/mylogo.png" alt="Bible Buddy Logo" class="logo"></span></a>
+        <span id="loggedInUser" class="hidden">Welcome, <span id="username"></span></span>
+        <div id="menuLinks" class="flex flex-grow justify-end">
+            <a href="chat.html" class="nav-link hidden" id="chatLink">Bible Buddy</a>
+            <a href="stories.html" class="nav-link" id="storiesLink">Stories</a>
+            <a href="contacts.html" class="nav-link" id="contactsLink">Contact Us</a>
+            <a href="javascript:void(0)" id="signInLink" class="nav-link">Sign-In</a>
+            <a href="javascript:void(0)" id="logoutLink" class="nav-link hidden">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Stories Section -->
+    <div class="story-container">
+        <div class="story-image">
+            <img src="images/joseph.png" alt="Joseph">
+        </div>
+        <div class="story-text">
+            <h1>Joseph and His Colorful Coat</h1>
+            <p>Joseph was the favorite son of Jacob, and to show his love, Jacob gave Joseph a beautiful, colorful coat. This made Joseph's brothers very jealous and angry because they knew their father loved Joseph more than them.</p>
+        
+            <p>One day, Joseph had a dream that made his brothers even angrier. He dreamt that they were all binding sheaves of grain in the field when suddenly, his sheaf stood upright, and their sheaves gathered around and bowed down to his. He had another dream where the sun, moon, and eleven stars bowed down to him. His brothers hated him even more because of his dreams.</p>
+            
+            <p>One day, when Joseph went to check on his brothers in the fields, they saw him coming and plotted to kill him. But the oldest brother, Reuben, suggested they throw him into a pit instead, planning to rescue him later. They stripped Joseph of his colorful coat and threw him into a dry well. While they were eating, a caravan of Ishmaelites passed by, and Judah suggested they sell Joseph as a slave instead of killing him. The brothers agreed and sold Joseph for twenty pieces of silver.</p>
+            
+            <p>Joseph was taken to Egypt, where he faced many hardships. He was falsely accused by his master's wife and imprisoned. Despite these challenges, Joseph remained faithful to God. He interpreted the dreams of Pharaoh's cupbearer and baker while in prison, and later, Pharaoh himself had troubling dreams that no one could interpret. The cupbearer remembered Joseph, and Joseph was brought to Pharaoh to interpret his dreams.</p>
+            
+            <p>Joseph explained that Pharaoh's dreams meant there would be seven years of plenty followed by seven years of famine. Impressed by Joseph's wisdom, Pharaoh made him his advisor and put him in charge of storing food during the years of plenty. When the famine came, people from all over came to Egypt to buy grain, including Joseph's brothers.</p>
+            
+            <p>When Joseph's brothers came to buy grain, they did not recognize him. Joseph tested them to see if they had changed and eventually revealed his identity. The brothers were afraid, but Joseph forgave them, saying, "You intended to harm me, but God intended it for good to accomplish what is now being done, the saving of many lives." Joseph's family moved to Egypt, and they were reunited.</p>
+            
+            <p>This story teaches us about the power of forgiveness, faith, and God's plan working through difficult circumstances.</p>
+        </div>
+    </div>
+
+        <div id="voiceflowChat" class="hidden">
+            <script type="text/javascript">
+                // function loadVoiceflowChat() {
+                //     var v = document.createElement('script'), s = document.getElementsByTagName('script')[0];
+                //     v.onload = function() {
+                //         window.voiceflow.chat.load({
+                //             verify: { projectID: '65544493fa3da40007b1b812' },
+                //             url: 'https://general-runtime.voiceflow.com',
+                //             versionID: 'production'
+                //         });
+                //     }
+                //     v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; 
+                //     v.type = "text/javascript"; 
+                //     s.parentNode.insertBefore(v, s);
+                // }
+            
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Replace this with your actual logic to determine if the user is logged in
+                    
+                    let loggedUser;
+
+                    if(globalConfig.envType === 'dev'){
+                        loggedUser = localStorage.getItem('loggedInUser');
+                    } else { 
+                        loggedUser  = getCookie('loggedInUser');
+                    }
+
+                    if (loggedUser) {
+                        loadVoiceflowChat();
+                    }
+                });
+
+                document.addEventListener("DOMContentLoaded", function() {
+                    
+                    let loggedUser;
+
+                    if(globalConfig.envType === 'dev'){
+                        loggedUser = localStorage.getItem('loggedInUser');
+                    } else {
+                        loggedUser  = getCookie('loggedInUser');
+                    }
+
+                    if (loggedUser) {
+                        document.getElementById('loggedInUser').classList.remove('hidden');
+                        document.getElementById('username').textContent = loggedUser;
+                        document.getElementById('signInLink').classList.add('hidden');
+                        document.getElementById('logoutLink').classList.remove('hidden');
+                        document.getElementById('chatLink').classList.remove('hidden');
+                        // document.getElementById('storiesLink').classList.remove('hidden');
+                        // document.getElementById('contactsLink').classList.remove('hidden');
+                        document.getElementById('buddyMessage').classList.remove('hidden');
+                        document.getElementById('signInMessage').classList.add('hidden');
+                        loadVoiceflowChat();
+                    }
+                });
+
+                document.getElementById('logoutLink').addEventListener('click', function() {
+                    if (globalConfig.envType === 'dev'){
+                        localStorage.removeItem('loggedInUser');
+                    } else {
+                        deleteCookie('loggedInUser');
+                    }
+                    document.getElementById('loggedInUser').classList.add('hidden');
+                    document.getElementById('username').textContent = '';
+                    document.getElementById('signInLink').classList.remove('hidden');
+                    document.getElementById('logoutLink').classList.add('hidden');
+                    document.getElementById('chatLink').classList.remove('hidden');
+                    // document.getElementById('storiesLink').classList.add('hidden');
+                    // document.getElementById('contactsLink').classList.add('hidden');
+                    document.getElementById('buddyMessage').classList.add('hidden');
+                    document.getElementById('signInMessage').classList.remove('hidden');
+                });                
+
+            </script>
+        </div>    
+   
+    <footer class="bg-white-200 text-gray-400">
+        &nbsp;&nbsp;&nbsp; &copy;2023 Amit Rai. All rights reserved.
+    </footer>
+
+    <script src="scripts/auth.js"></script>
+
+</body>
+</html>

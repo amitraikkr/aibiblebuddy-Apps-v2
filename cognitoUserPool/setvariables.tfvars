@@ -1,0 +1,5 @@
+aws_region = "use-east-2"
+user_pool_name = "bible_app_user_pool"
+user_pool_client_name = "bible_app_user_pool_client"
+identity_pool_name = "bible_app_identity_pool"
+cognito_authenticated_role = "bible_app_authenticated_role"

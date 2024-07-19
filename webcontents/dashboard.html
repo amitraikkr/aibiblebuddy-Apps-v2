@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+    }
+    .navbar {
+      background-color: #343a40;
+    }
+    .navbar-brand, .navbar-nav .nav-link {
+      color: #ffffff;
+    }
+    .navbar-brand:hover, .navbar-nav .nav-link:hover {
+      color: #d4d4d4;
+    }
+    .header {
+      background: linear-gradient(to right, #0062E6, #33AEFF);
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    .header p {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+    .container {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Recipients</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">History</a>
+        </li>
+        <li class="nav-item">
+          <button id="logout-button" class="btn btn-link nav-link">Logout</button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="header">
+    <h1>Welcome to Your Dashboard</h1>
+    <p>Manage your tasks efficiently and effectively</p>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Feature 1</h4>
+          </div>
+          <div class="card-body">
+            <p class="card-text">Description of Feature 1.</p>
+            <button type="button" class="btn btn-lg btn-block btn-primary">View details</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Feature 2</h4>
+          </div>
+          <div class="card-body">
+            <p class="card-text">Description of Feature 2.</p>
+            <button type="button" class="btn btn-lg btn-block btn-primary">View details</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Feature 3</h4>
+          </div>
+          <div class="card-body">
+            <p class="card-text">Description of Feature 3.</p>
+            <button type="button" class="btn btn-lg btn-block btn-primary">View details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.1030.0/aws-sdk.min.js" crossorigin="anonymous" onerror="this.onerror=null;this.src='/path/to/local/aws-sdk.min.js';"></script>
+  <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@4.5.12/dist/amazon-cognito-identity.min.js" crossorigin="anonymous" onerror="this.onerror=null;this.src='/path/to/local/amazon-cognito-identity.min.js';"></script>
+  
+<script src="logout.js"></script>
+</body>
+</html>

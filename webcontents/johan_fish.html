@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bible Buddy for Kids</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        h1, h2, a {
+            color: #b37d00;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .logo {
+            width: 70px; 
+            height: 70px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+        }
+        .nav-link {
+            background-color: #b37d00; 
+            color: white; 
+            padding: 10px 15px; 
+            margin-left: 10px; 
+            border-radius: 5px; 
+        }
+        .nav-link:hover {
+            background-color: #865c00; 
+        }
+        .story-container {
+            display: flex;
+            flex-direction: column;
+        }
+        @media (min-width: 768px) {
+            .story-container {
+                flex-direction: row;
+            }
+            .story-container:nth-child(even) {
+                flex-direction: row-reverse;
+            }
+        }
+        .story-image, .story-text {
+            flex: 1;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="flex justify-between items-center bg-gray-100 p-1">
+        <a href="index.html"><span class="text-xl font-bold"><img src="images/mylogo.png" alt="Bible Buddy Logo" class="logo"></span></a>
+        <span id="loggedInUser" class="hidden">Welcome, <span id="username"></span></span>
+        <div id="menuLinks" class="flex flex-grow justify-end">
+            <a href="chat.html" class="nav-link hidden" id="chatLink">Bible Buddy</a>
+            <a href="stories.html" class="nav-link" id="storiesLink">Stories</a>
+            <a href="contacts.html" class="nav-link" id="contactsLink">Contact Us</a>
+            <a href="javascript:void(0)" id="signInLink" class="nav-link">Sign-In</a>
+            <a href="javascript:void(0)" id="logoutLink" class="nav-link hidden">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Stories Section -->
+    <div class="story-container">
+        <div class="story-image">
+            <img src="images/johan.png" alt="johan">
+        </div>
+        <div class="story-text">
+            <h1>Jonah and the Whale</h1>
+            <p>God asked Jonah to go to the city of Nineveh and tell the people to repent from their evil ways. But Jonah didn’t want to go, so he boarded a ship heading in the opposite direction. While at sea, a great storm arose, threatening to break the ship apart.</p>
+        
+            <p>The sailors were afraid and each cried out to his own god. They threw the cargo into the sea to lighten the ship, but nothing worked. Jonah, knowing that the storm was because of him, told the sailors to throw him overboard to calm the sea. Reluctantly, they did so, and immediately the sea grew calm.</p>
+            
+            <p>As Jonah was thrown into the raging waters, a great fish swallowed him. Jonah was in the belly of the fish for three days and three nights. While inside, Jonah prayed to God, asking for forgiveness and pledging to obey Him.</p>
+            
+            <p>God heard Jonah's prayer and commanded the fish to spit Jonah out onto dry land. Jonah then went to Nineveh and delivered God's message. The people of Nineveh believed Jonah and repented from their evil ways, and God showed them mercy.</p>
+            
+            <p>This story teaches us about the importance of obedience, repentance, and God's boundless mercy and forgiveness.</p>
+        </div>
+    </div>
+
+    
+        <div id="voiceflowChat" class="hidden">
+            <script type="text/javascript">
+                // function loadVoiceflowChat() {
+                //     var v = document.createElement('script'), s = document.getElementsByTagName('script')[0];
+                //     v.onload = function() {
+                //         window.voiceflow.chat.load({
+                //             verify: { projectID: '65544493fa3da40007b1b812' },
+                //             url: 'https://general-runtime.voiceflow.com',
+                //             versionID: 'production'
+                //         });
+                //     }
+                //     v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; 
+                //     v.type = "text/javascript"; 
+                //     s.parentNode.insertBefore(v, s);
+                // }
+            
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Replace this with your actual logic to determine if the user is logged in
+                    
+                    let loggedUser;
+
+                    if(globalConfig.envType === 'dev'){
+                        loggedUser = localStorage.getItem('loggedInUser');
+                    } else { 
+                        loggedUser  = getCookie('loggedInUser');
+                    }
+
+                    if (loggedUser) {
+                        loadVoiceflowChat();
+                    }
+                });
+
+                document.addEventListener("DOMContentLoaded", function() {
+                    
+                    let loggedUser;
+
+                    if(globalConfig.envType === 'dev'){
+                        loggedUser = localStorage.getItem('loggedInUser');
+                    } else {
+                        loggedUser  = getCookie('loggedInUser');
+                    }
+
+                    if (loggedUser) {
+                        document.getElementById('loggedInUser').classList.remove('hidden');
+                        document.getElementById('username').textContent = loggedUser;
+                        document.getElementById('signInLink').classList.add('hidden');
+                        document.getElementById('logoutLink').classList.remove('hidden');
+                        document.getElementById('chatLink').classList.remove('hidden');
+                        // document.getElementById('storiesLink').classList.remove('hidden');
+                        // document.getElementById('contactsLink').classList.remove('hidden');
+                        document.getElementById('buddyMessage').classList.remove('hidden');
+                        document.getElementById('signInMessage').classList.add('hidden');
+                        loadVoiceflowChat();
+                    }
+                });
+
+                document.getElementById('logoutLink').addEventListener('click', function() {
+                    if (globalConfig.envType === 'dev'){
+                        localStorage.removeItem('loggedInUser');
+                    } else {
+                        deleteCookie('loggedInUser');
+                    }
+                    document.getElementById('loggedInUser').classList.add('hidden');
+                    document.getElementById('username').textContent = '';
+                    document.getElementById('signInLink').classList.remove('hidden');
+                    document.getElementById('logoutLink').classList.add('hidden');
+                    document.getElementById('chatLink').classList.remove('hidden');
+                    // document.getElementById('storiesLink').classList.add('hidden');
+                    // document.getElementById('contactsLink').classList.add('hidden');
+                    document.getElementById('buddyMessage').classList.add('hidden');
+                    document.getElementById('signInMessage').classList.remove('hidden');
+                });                
+
+            </script>
+        </div>    
+    
+    <footer class="bg-white-200 text-gray-400">
+        &nbsp;&nbsp;&nbsp; &copy;2023 Amit Rai. All rights reserved.
+    </footer>
+
+    <script src="scripts/auth.js"></script>
+
+</body>
+</html>

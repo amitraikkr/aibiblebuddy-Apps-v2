@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bible Buddy for Kids - Stories</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        h1, h2, a {
+            color: #b37d00;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .logo {
+            width: 70px; 
+            height: 70px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+        }
+        .nav-link {
+            background-color: #b37d00; 
+            color: white; 
+            padding: 10px 15px; 
+            margin-left: 10px; 
+            border-radius: 5px; 
+        }
+        .nav-link:hover {
+            background-color: #865c00; 
+        }
+        .thumbnail {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .thumbnail:hover {
+            transform: scale(1.05);
+        }
+        .login-message {
+            display: none;
+            color: #b37d00;
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="flex justify-between items-center bg-gray-100 p-1">
+        <a href="index.html"><span class="text-xl font-bold"><img src="images/mylogo.png" alt="Bible Buddy Logo" class="logo"></span></a>
+        <span id="loggedInUser" class="hidden">Welcome, <span id="username"></span></span>
+        <div id="menuLinks" class="flex flex-grow justify-end">
+            <a href="chat.html" class="nav-link hidden" id="chatLink">Bible Buddy</a>
+            <a href="stories.html" class="nav-link" id="storiesLink">Stories</a>
+            <a href="contacts.html" class="nav-link" id="contactsLink">Contact Us</a>
+            <a href="javascript:void(0)" id="signInLink" class="nav-link">Sign-In</a>
+            <a href="javascript:void(0)" id="logoutLink" class="nav-link hidden">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Stories Section -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
+        <div class="thumbnail" onclick="location.href='david_goliath.html'">
+            <img src="images/david.png" alt="David and Goliath">
+            <h2 class="mt-2 text-center">David and Goliath</h2>
+        </div>
+        <div class="thumbnail" onclick="location.href='daniel_lions.html'">
+            <img src="images/daniel.png" alt="Daniel in the Lion's Den">
+            <h2 class="mt-2 text-center">Daniel in the Lion's Den</h2>
+        </div>
+        <div class="thumbnail" onclick="location.href='noahs_ark.html'">
+            <img src="images/noah.png" alt="Noah's Ark">
+            <h2 class="mt-2 text-center">Noah's Ark</h2>
+        </div>
+        <div class="thumbnail" onclick="location.href='moses_story.html'">
+            <img src="images/moses.png" alt="Moses">
+            <h2 class="mt-2 text-center">Moses in the Bulrushes</h2>
+        </div>
+        <!-- Add more thumbnails as needed -->
+        <div class="thumbnail hidden" onclick="location.href='johan_fish.html'">
+            <img src="images/johan.png" alt="Johan">
+            <h2 class="mt-2 text-center">Jonah and the Whale</h2>
+        </div>
+        <div class="thumbnail hidden" onclick="location.href='joseph_brothers.html'">
+            <img src="images/joseph.png" alt="Joseph">
+            <h2 class="mt-2 text-center">Joseph and His Colorful Coat</h2>
+        </div>
+        <div class="thumbnail hidden" onclick="location.href='good_samaritan.html'">
+            <img src="images/samaritan.png" alt="Good Samaritan">
+            <h2 class="mt-2 text-center">The Good Samaritan</h2>
+        </div>
+        <div class="thumbnail hidden" onclick="location.href='creation.html'">
+            <img src="images/creation.png" alt="Creation">
+            <h2 class="mt-2 text-center">The Story of Creation</h2>
+        </div>
+        <!-- Add more thumbnails as needed -->
+        <div class="thumbnail hidden" onclick="location.href='abraham_isaac.html'">
+            <img src="images/abraham.png" alt="Abraham and Isaac">
+            <h2 class="mt-2 text-center">Abraham and Isaac</h2>
+        </div>
+        <div class="thumbnail hidden" onclick="location.href='redsea.html?id=daniel-lions-den'">
+            <img src="images/redsea.png" alt="Exodus and Red Sea">
+            <h2 class="mt-2 text-center">The Exodus and the Parting of the Red Sea</h2>
+        </div>
+        <div class="thumbnail hidden" onclick="location.href='elijah.html'">
+            <img src="images/elijah.png" alt="Elijah and the Widow at Zarephath">
+            <h2 class="mt-2 text-center">Elijah and the Widow at Zarephath</h2>
+        </div>
+        <div class="thumbnail hidden" onclick="location.href='zacchaeus.html'">
+            <img src="images/zacchaeus.png" alt="Zacchaeus">
+            <h2 class="mt-2 text-center">The Story of Zacchaeus</h2>
+        </div>
+    </div>
+
+    <div id="loginMessage" class="login-message">For more stories, please login <a href="javascript:void(0)" id="signInLinkText" class="nav-link">Sign-In</a></div>
+
+    <footer class="bg-white-200 text-gray-400">
+        &nbsp;&nbsp;&nbsp; &copy;2023 Amit Rai. All rights reserved.
+    </footer>
+
+
+    <script type="module">
+        import config from './scripts/config.js';
+        import { getCookie } from './scripts/auth.js';
+
+        document.addEventListener("DOMContentLoaded", function() {
+            let loggedUser;
+            if(config.envType === 'dev'){
+                loggedUser = localStorage.getItem('loggedInUser');
+            } else { 
+                loggedUser = getCookie('loggedInUser');
+            }
+
+            if (loggedUser) {
+                document.getElementById('loggedInUser').classList.remove('hidden');
+                document.getElementById('username').textContent = loggedUser;
+                document.getElementById('signInLink').classList.add('hidden');
+                document.getElementById('logoutLink').classList.remove('hidden');
+                document.getElementById('chatLink').classList.remove('hidden');
+                //document.getElementById('storiesLink').classList.remove('hidden');
+                // document.getElementById('contactsLink').classList.remove('hidden');
+
+                document.querySelectorAll('.thumbnail.hidden').forEach(function(elem) {
+                    elem.classList.remove('hidden');
+                });
+            } else {
+                document.getElementById('loginMessage').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
