@@ -54,7 +54,6 @@
 </head>
 <body>
   <div id="auth-container">
-    
     <div id="sign-in-form">
       <h2 class="text-center">Sign In</h2>
       <div class="form-group">
@@ -68,7 +67,7 @@
       <p id="toggle-sign-up" class="toggle-link">Don't have an account? <a href="#" onclick="toggleForms('sign-up')">Sign Up</a></p>
       <p id="toggle-reset-password" class="toggle-link small-font">Forgot Password? <a href="#" onclick="toggleForms('reset-password')">Reset</a></p>
     </div>
-       
+    
     <div id="sign-up-form" style="display: none;">
       <h2 class="text-center">Sign Up</h2>
       <div class="form-group">
@@ -97,13 +96,21 @@
     <div id="reset-password-form" style="display: none;">
       <h2 class="text-center">Reset Password</h2>
       <div class="form-group">
-        <input type="email" id="reset-email" class="form-control" placeholder="Enter your email">
+        <input type="text" id="reset-username" class="form-control" placeholder="Username">
+      </div>
+      <div id="reset-password-code-form" style="display: none;">
+        <div class="form-group">
+          <input type="text" id="reset-code" class="form-control" placeholder="Verification Code">
+        </div>
+        <div class="form-group">
+          <input type="password" id="new-password" class="form-control" placeholder="New Password">
+        </div>
+        <button id="confirm-reset-button" class="btn btn-block nav-link">Confirm Reset</button>
       </div>
       <div id="reset-message" class="message"></div>
-      <button id="reset-button" class="btn btn-block nav-link">Send</button>
+      <button id="reset-button" class="btn btn-block nav-link">Send Verification Code</button>
       <p id="toggle-sign-in" class="toggle-link">Remembered password? <a href="#" onclick="toggleForms('sign-in')">Sign In</a></p>
     </div>
-
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.1030.0/aws-sdk.min.js" crossorigin="anonymous" onerror="this.onerror=null;this.src='/path/to/local/aws-sdk.min.js';"></script>
@@ -136,15 +143,23 @@
     });
 
     document.getElementById('reset-button').addEventListener('click', function() {
-      var email = document.getElementById('reset-email').value;
+      var email = document.getElementById('reset-username').value;
       if (!email) {
         document.getElementById('reset-message').style.display = 'block';
-        document.getElementById('reset-message').textContent = 'Email cannot be blank';
-      } else if (!validateEmail(email)) {
-        document.getElementById('reset-message').style.display = 'block';
-        document.getElementById('reset-message').textContent = 'Please enter a valid email address';
+        document.getElementById('reset-message').textContent = 'Username or Email cannot be blank';
       } else {
         // Proceed with reset password
+      }
+    });
+
+    document.getElementById('confirm-reset-button').addEventListener('click', function() {
+      var code = document.getElementById('reset-code').value;
+      var newPassword = document.getElementById('new-password').value;
+      if (!code || !newPassword) {
+        document.getElementById('reset-message').style.display = 'block';
+        document.getElementById('reset-message').textContent = 'Code and new password cannot be blank';
+      } else {
+        // Proceed with password reset confirmation
       }
     });
 
@@ -157,6 +172,7 @@
       document.getElementById('sign-in-form').style.display = form === 'sign-in' ? 'block' : 'none';
       document.getElementById('sign-up-form').style.display = form === 'sign-up' ? 'block' : 'none';
       document.getElementById('reset-password-form').style.display = form === 'reset-password' ? 'block' : 'none';
+      document.getElementById('reset-password-code-form').style.display = 'none';
       document.getElementById('confirmation-form').style.display = 'none';
     }
   </script>

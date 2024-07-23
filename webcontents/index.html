@@ -78,18 +78,18 @@
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="flex justify-between items-center bg-gray-100 p-1">
-        <a href="index.html"><span class="text-xl font-bold"><img src="images/mylogo.png" alt="Bible Buddy Logo" class="logo"></span></a>
-        <span id="loggedInUser" class="hidden">Welcome, <span id="username"></span></span>
-        <div id="menuLinks" class="flex flex-grow justify-end">
-            <a href="chat.html" class="nav-link hidden" id="chatLink">Bible Buddy</a>
-            <a href="stories.html" class="nav-link" id="storiesLink">Stories</a>
-            <a href="contacts.html" class="nav-link" id="contactsLink">Contact Us</a>
-            <a href="javascript:void(0)" id="signInLink" class="nav-link">Sign-In</a>
-            <a href="javascript:void(0)" id="logoutLink" class="nav-link hidden">Logout</a>
-        </div>
-    </nav>
+        <!-- Navbar -->
+        <nav class="flex justify-between items-center bg-gray-100 p-1">
+            <a href="index.html"><span class="text-xl font-bold"><img src="images/mylogo.png" alt="Bible Buddy Logo" class="logo"></span></a>
+            <span id="loggedInUser" class="hidden">Welcome, <span id="username"></span></span>
+            <div id="menuLinks" class="flex flex-grow justify-end">
+                <a href="chat.html" class="nav-link" id="chatLink">Bible Buddy</a>
+                <a href="stories.html" class="nav-link" id="storiesLink">Stories</a>
+                <a href="contacts.html" class="nav-link hidden" id="contactsLink">Contact Us</a>
+                <a href="javascript:void(0)" id="signInLink" class="nav-link">Sign-In</a>
+                <a href="javascript:void(0)" id="logoutLink" class="nav-link hidden">Logout</a>
+            </div>
+        </nav>
 
     <div class="flex flex-col md:flex-row min-h-screen bg-azure-200 text-justify">
         <div class="md:flex-1 flex justify-center items-center p-4">
@@ -100,18 +100,15 @@
             <h2 class="text-3xl mb-2">Learning from the Bible</h2>
             <p class="mb-4">The Bible has many stories that help us learn important lessons about how to be good people. These stories teach us about what is right and wrong, like a compass that shows us the right direction. In these stories, Jesus tells us about loving everyone and forgiving people, which are very special ways to care for others.</p>
             <p class="mb-4">Jesus's teachings help us understand how to be kind and nice to everyone, even when people are different from us. He shows us how to share love and kindness in a world where people sometimes disagree. By listening to what Jesus teaches, we can learn to bring people together, be caring, and make the world a better place for everyone.</p>
-            <h2 class="text-3xl mb-2">Learning with Bible Buddy</h2>
+            <!--<h2 class="text-3xl mb-2">Learning with Bible Buddy</h2>-->
             <p class="mb-4 hidden" id="buddyMessage">Click the Buddy icon to start the conversation with Bible Buddy.</p>
-            <p class="mb-4" id="signInMessage">Sign-In to start the conversation with Bible Buddy <a href="javascript:void(0)" id="signInLinkText" class="nav-link">Sign-In</a></p>
-            
-          <!--  <div class="hidden" id="subscribeSection">
-                <h2 class="text-2xl mb-2">Subscribe for newsletters and daily Bible verses</h2>
-                <form id="subscribeForm" class="flex items-center">
-                    <input type="email" id="emailInput" class="border p-2 w-2/3" placeholder="Enter your email" required>
-                    <button type="submit" class="bg-b37d00 text-white p-2 ml-2 nav-link">Subscribe</button>
-                </form>
-                <p id="subscribeMessage" class="hidden text-green-500 mt-2">Thank you for subscribing!</p>
-            </div> -->
+            <p class="mb-4" id="signInMessage">Start a conversation with Bible Buddy to learn about the Bible, explore Bible stories, and get answers to your questions about the scriptures. Discover the wisdom and teachings of the Bible in an engaging and interactive way!
+            </p>
+            <!--<p<a href="chat.html" id="chatLink" class="nav-link">Bible Buddy</a></p>-->
+            <br><br><br><br>
+            <h2 class="text-3xl mb-2">Contact Us</h2>
+            <p class="mb-4" id="signInMessage"><p class="mb-4" id="contactMessage">You can contact us, share your feedback, and let us know how we can help make your experience better!</p> 
+            <p><a href="contacts.html" id="contactLink" class="nav-link">Contact Us</a></p>
         </div>
         <div id="voiceflowChat" class="hidden">
             <script type="module">
@@ -220,6 +217,11 @@
                      var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     return re.test(String(email).toLowerCase());
                 }
+                document.getElementById('nav-toggle').addEventListener('click', function() {
+                    var menuLinks = document.getElementById('menuLinks');
+                    menuLinks.classList.toggle('hidden');
+                });
+
             </script>
         </div>
     </div>

@@ -7,6 +7,8 @@ function toggleForms(formToShow) {
     document.getElementById('sign-in-form').style.display = 'none';
     document.getElementById('sign-up-form').style.display = 'none';
     document.getElementById('confirmation-form').style.display = 'none';
+    document.getElementById('reset-password-form').style.display = 'none';
+    document.getElementById('reset-password-code-form').style.display = 'none';
 
     // Clear all messages
     document.getElementById('sign-in-message').innerText = '';
@@ -15,14 +17,19 @@ function toggleForms(formToShow) {
     document.getElementById('sign-up-message').style.display = 'none';
     document.getElementById('confirmation-message').innerText = '';
     document.getElementById('confirmation-message').style.display = 'none';
+    document.getElementById('reset-message').innerText = '';
+    document.getElementById('reset-message').style.display = 'none';
 
     // Clear all text boxes
-    document.getElementById('sign-in-username').value = '';
+    //document.getElementById('sign-in-username').value = '';
     document.getElementById('sign-in-password').value = '';
-
+    //document.getElementById('sign-up-username').value = '';
     document.getElementById('sign-up-password').value = '';
     //document.getElementById('sign-up-email').value = '';
-    document.getElementById('confirmation-code').value = '';
+    //document.getElementById('confirmation-code').value = '';
+    //document.getElementById('reset-username').value = '';
+    //document.getElementById('reset-code').value = '';
+    document.getElementById('new-password').value = '';
 
     // Show the selected form
     if (formToShow === 'sign-in') {
@@ -31,6 +38,8 @@ function toggleForms(formToShow) {
         document.getElementById('sign-up-form').style.display = 'block';
     } else if (formToShow === 'confirm-sign-up') {
         document.getElementById('confirmation-form').style.display = 'block';
+    } else if (formToShow === 'reset-password') {
+        document.getElementById('reset-password-form').style.display = 'block';
     }
 }
 
@@ -39,11 +48,10 @@ let poolData = {
     ClientId: config.ClientId // Your client id here
 }
 
-
 const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
 // Helper function to display messages
-function displayMessage(elementId, message, resetPasswordButton = false) {
+function displayMessage(elementId, message) {
     const messageElement = document.getElementById(elementId);
     messageElement.innerText = message;
     messageElement.style.display = 'block';
@@ -69,7 +77,6 @@ document.getElementById('sign-in-button').addEventListener('click', () => {
         Pool: userPool,
     };
 
-
     function setCookie(name, value, days) {
         let expires = "";
         if (days) {
@@ -84,19 +91,19 @@ document.getElementById('sign-in-button').addEventListener('click', () => {
 
     cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: (result) => {
-
             const envType = config.envType;
             console.log('Environment Type:', envType);
 
-            if(envType === 'dev'){
+            if (envType === 'dev') {
                 localStorage.setItem('loggedInUser', username);
-                localStorage.setItem('authToken',result.getAccessToken().getJwtToken());
+                localStorage.setItem('authToken', result.getAccessToken().getJwtToken());
             } else {
                 setCookie('loggedInUser', username, 1);
                 setCookie('authToken', result.getAccessToken().getJwtToken(), 1);
-            }  
-                // Fetch and store user email
-            cognitoUser.getUserAttributes(function(err, attributes) {
+            }
+
+            // Fetch and store user email
+            cognitoUser.getUserAttributes(function (err, attributes) {
                 if (err) {
                     console.error(err);
                     return;
@@ -107,10 +114,9 @@ document.getElementById('sign-in-button').addEventListener('click', () => {
                 } else {
                     setCookie('userEmail', email, 1);
                 }
-            });    
+            });
 
             // Send message to parent window and close the modal
-            // Close the modal and refresh the parent window
             if (window.opener) {
                 window.opener.postMessage({ type: 'login', username: username }, '*');
                 window.close();
@@ -121,7 +127,7 @@ document.getElementById('sign-in-button').addEventListener('click', () => {
         },
         onFailure: (err) => {
             console.error("Authentication failed:", err);
-            displayMessage('sign-in-message', err.message || JSON.stringify(err), true);
+            displayMessage('sign-in-message', err.message || JSON.stringify(err));
         },
     });
 });
@@ -165,8 +171,14 @@ document.getElementById('confirm-sign-up-button').addEventListener('click', () =
     const email = document.getElementById('sign-up-email').value;
     const confirmationCode = document.getElementById('confirmation-code').value;
 
-    console.log("Username:", username);
-    console.log("Confirmation Code:", confirmationCode);
+    //console.log("Username:", username);
+    //console.log("Confirmation Code:", confirmationCode);
+
+    // const userData = {
+    //     Username: username,
+    //     Pool: userPool,
+    // };
+
 
     const userData = {
         Username: username,
@@ -185,7 +197,7 @@ document.getElementById('confirm-sign-up-button').addEventListener('click', () =
         displayMessage('confirmation-message', 'Confirmation successful! You can now sign in.');
       
         // Fetch the API key from Secrets Manager or cache
-        const apiKey = globalConfig.apiKey;
+        const apiKey = config.userApiKey;
         console.log('API key extracted from secret:', apiKey);
         //displayMessage('confirmation-message', apiKey);
         //displayMessage('confirmation-message', username);
@@ -227,7 +239,69 @@ document.getElementById('confirm-sign-up-button').addEventListener('click', () =
         });
         toggleForms('sign-in');
     });
-    
+
+    // const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+
+    // cognitoUser.confirmRegistration(confirmationCode, true, (err, result) => {
+    //     if (err) {
+    //         console.error("Confirmation failed:", err);
+    //         displayMessage('confirmation-message', err.message || JSON.stringify(err));
+    //         return;
+    //     }
+    //     console.log('Call result:', result);
+    //     displayMessage('confirmation-message', 'Confirmation successful! You can now sign in.');
+    //     toggleForms('sign-in');
+    // });
+});
+
+// Reset Password function
+document.getElementById('reset-button').addEventListener('click', () => {
+    console.log('Reset Password button clicked');
+
+    const username = document.getElementById('reset-username').value;
+
+    const cognitoUser = new AmazonCognitoIdentity.CognitoUser({
+        Username: username,
+        Pool: userPool,
+    });
+
+    cognitoUser.forgotPassword({
+        onSuccess: (data) => {
+            console.log('Verification code sent successfully:', data);
+            displayMessage('reset-message', 'Verification code sent. Please check your email.');
+            document.getElementById('reset-password-code-form').style.display = 'block';
+        },
+        onFailure: (err) => {
+            console.error("Error sending verification code:", err);
+            displayMessage('reset-message', err.message || JSON.stringify(err));
+        },
+    });
+});
+
+// Confirm Reset Password function
+document.getElementById('confirm-reset-button').addEventListener('click', () => {
+    console.log('Confirm Reset Password button clicked');
+
+    const username = document.getElementById('reset-username').value;
+    const verificationCode = document.getElementById('reset-code').value;
+    const newPassword = document.getElementById('new-password').value;
+
+    const cognitoUser = new AmazonCognitoIdentity.CognitoUser({
+        Username: username,
+        Pool: userPool,
+    });
+
+    cognitoUser.confirmPassword(verificationCode, newPassword, {
+        onSuccess: () => {
+            console.log('Password reset successfully');
+            displayMessage('reset-message', 'Password reset successful! You can now sign in.');
+            toggleForms('sign-in');
+        },
+        onFailure: (err) => {
+            console.error("Error resetting password:", err);
+            displayMessage('reset-message', err.message || JSON.stringify(err));
+        },
+    });
 });
 
 // Attach toggle function to toggle links
@@ -236,6 +310,9 @@ document.getElementById('toggle-sign-up').addEventListener('click', () => {
 });
 document.getElementById('toggle-sign-in').addEventListener('click', () => {
     toggleForms('sign-in');
+});
+document.getElementById('toggle-reset-password').addEventListener('click', () => {
+    toggleForms('reset-password');
 });
 
 // Listen for messages from the popup
