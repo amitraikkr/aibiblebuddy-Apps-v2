@@ -50,7 +50,7 @@ function checkLoggedIn() {
         if (buddyMessage) {
             buddyMessage.classList.remove('hidden');
         }
-        document.getElementById('username').innerText = loggedInUser;
+        //document.getElementById('username').innerText = loggedInUser;
     }
 }
 

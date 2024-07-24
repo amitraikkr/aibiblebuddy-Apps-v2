@@ -81,7 +81,7 @@
         <!-- Navbar -->
         <nav class="flex justify-between items-center bg-gray-100 p-1">
             <a href="index.html"><span class="text-xl font-bold"><img src="images/mylogo.png" alt="Bible Buddy Logo" class="logo"></span></a>
-            <span id="loggedInUser" class="hidden">Welcome, <span id="username"></span></span>
+            <span id="loggedInUser" class="hidden"></span></span>
             <div id="menuLinks" class="flex flex-grow justify-end">
                 <a href="chat.html" class="nav-link" id="chatLink">Bible Buddy</a>
                 <a href="stories.html" class="nav-link" id="storiesLink">Stories</a>
@@ -149,9 +149,9 @@
                     }
 
 
-                    if (loggedUser) {
-                        loadVoiceflowChat();
-                    }
+                    // if (loggedUser) {
+                    //     loadVoiceflowChat();
+                    // }
                 });
 
                 document.addEventListener("DOMContentLoaded",  function() {
@@ -167,7 +167,7 @@
 
                     if (loggedUser) {
                         document.getElementById('loggedInUser').classList.remove('hidden');
-                        document.getElementById('username').textContent = loggedUser;
+                        //document.getElementById('username').textContent = loggedUser;
                         document.getElementById('signInLink').classList.add('hidden');
                         document.getElementById('logoutLink').classList.remove('hidden');
                         document.getElementById('chatLink').classList.remove('hidden');
@@ -176,7 +176,7 @@
                         document.getElementById('buddyMessage').classList.remove('hidden');
                         document.getElementById('signInMessage').classList.add('hidden');
                         //document.getElementById('subscribeSection').classList.remove('hidden');
-                        loadVoiceflowChat();
+                        //loadVoiceflowChat();
                     }
                 });
 
@@ -217,10 +217,10 @@
                      var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     return re.test(String(email).toLowerCase());
                 }
-                document.getElementById('nav-toggle').addEventListener('click', function() {
-                    var menuLinks = document.getElementById('menuLinks');
-                    menuLinks.classList.toggle('hidden');
-                });
+                // document.getElementById('nav-toggle').addEventListener('click', function() {
+                //     var menuLinks = document.getElementById('menuLinks');
+                //     menuLinks.classList.toggle('hidden');
+                // });
 
             </script>
         </div>

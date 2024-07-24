@@ -50,7 +50,7 @@
     <!-- Navbar -->
     <nav class="flex justify-between items-center bg-gray-100 p-1">
         <a href="index.html"><span class="text-xl font-bold"><img src="images/mylogo.png" alt="Bible Buddy Logo" class="logo"></span></a>
-        <span id="loggedInUser" class="hidden">Welcome, <span id="username"></span></span>
+        <span id="loggedInUser" class="hidden"><!--<span id="username"></span>--></span>
         <div id="menuLinks" class="flex flex-grow justify-end">
             <a href="chat.html" class="nav-link" id="chatLink">Bible Buddy</a>
             <a href="stories.html" class="nav-link" id="storiesLink">Stories</a>
@@ -100,7 +100,7 @@
             <img src="images/abraham.png" alt="Abraham and Isaac">
             <h2 class="mt-2 text-center">Abraham and Isaac</h2>
         </div>
-        <div class="thumbnail hidden" onclick="location.href='redsea.html?id=daniel-lions-den'">
+        <div class="thumbnail hidden" onclick="location.href='redsea.html'">
             <img src="images/redsea.png" alt="Exodus and Red Sea">
             <h2 class="mt-2 text-center">The Exodus and the Parting of the Red Sea</h2>
         </div>
@@ -135,7 +135,7 @@
 
             if (loggedUser) {
                 document.getElementById('loggedInUser').classList.remove('hidden');
-                document.getElementById('username').textContent = loggedUser;
+                //document.getElementById('username').textContent = loggedUser;
                 document.getElementById('signInLink').classList.add('hidden');
                 document.getElementById('logoutLink').classList.remove('hidden');
                 document.getElementById('chatLink').classList.remove('hidden');
