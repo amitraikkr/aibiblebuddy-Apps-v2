@@ -16,43 +16,43 @@
             height: auto;
         }
         .logo {
-            width: 70px; /* Adjust the size as needed */
-            height: 70px; /* Adjust the size as needed */
-            border-radius: 50%; /* This makes the image round */
-            object-fit: cover; /* This ensures the image covers the area without stretching */
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
         }
         .nav-link {
-            background-color: #b37d00; /* Menu item background color */
-            color: white; /* Menu item text color */
-            padding: 10px 15px; /* Padding inside menu items */
-            margin-left: 10px; /* Space between menu items */
-            border-radius: 5px; /* Rounded corners */
+            background-color: #b37d00;
+            color: white;
+            padding: 10px 15px;
+            margin-left: 10px;
+            border-radius: 5px;
         }
         .nav-link:hover {
-            background-color: #865c00; /* Darker shade for hover effect */
+            background-color: #865c00;
         }
         /* Modal styles */
         .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1; 
-            left: 0; 
-            top: 0; 
-            width: 100%; 
-            height: 100%; 
-            overflow: auto; 
-            background-color: rgb(0,0,0); 
-            background-color: rgba(0,0,0,0.4); 
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
             display: flex;
             align-items: center;
             justify-content: center;
         }
         .modal-content {
             background-color: #fefefe;
-            margin: auto; 
+            margin: auto;
             padding: 5px;
             border: 1px solid #888;
-            width: 50%; 
+            width: 50%;
             max-width: 330px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
@@ -75,84 +75,66 @@
             filter: blur(5px);
             pointer-events: none;
         }
+        /* App download icons styles */
+        .download-icons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .download-icons img {
+            width: 180px;
+            height: 65px;
+        }
     </style>
 </head>
 <body>
-        <!-- Navbar -->
-        <nav class="flex justify-between items-center bg-gray-100 p-1">
-            <a href="index.html"><span class="text-xl font-bold"><img src="images/mylogo.png" alt="Bible Buddy Logo" class="logo"></span></a>
-            <span id="loggedInUser" class="hidden"></span></span>
-            <div id="menuLinks" class="flex flex-grow justify-end">
-                <a href="chat.html" class="nav-link" id="chatLink">Bible Buddy</a>
-                <a href="stories.html" class="nav-link" id="storiesLink">Stories</a>
-                <a href="contacts.html" class="nav-link hidden" id="contactsLink">Contact Us</a>
-                <a href="javascript:void(0)" id="signInLink" class="nav-link">Sign-In</a>
-                <a href="javascript:void(0)" id="logoutLink" class="nav-link hidden">Logout</a>
-            </div>
-        </nav>
+    <!-- Navbar -->
+    <nav class="flex justify-between items-center bg-gray-100 p-1">
+        <a href="index.html"><span class="text-xl font-bold"><img src="images/mylogo.png" alt="Bible Buddy Logo" class="logo"></span></a>
+        <span id="loggedInUser" class="hidden"></span></span>
+        <div id="menuLinks" class="flex flex-grow justify-end">
+            <a href="chat.html" class="nav-link hidden" id="chatLink">Bible Buddy</a>
+            <a href="stories.html" class="nav-link" id="storiesLink">Stories</a>
+            <a href="contacts.html" class="nav-link" id="contactsLink">Contact Us</a>
+            <a href="javascript:void(0)" id="signInLink" class="nav-link hidden">Sign-In</a>
+            <a href="javascript:void(0)" id="logoutLink" class="nav-link hidden">Logout</a>
+            <a href="fags_page.html" id="faqsLink" class="nav-link">FAQs</a>
+        </div>
+    </nav>
+
 
     <div class="flex flex-col md:flex-row min-h-screen bg-azure-200 text-justify">
         <div class="md:flex-1 flex justify-center items-center p-4">
             <img src="images/Jesuswithkids.png" alt="Jesus with Kids">
         </div>
         <div class="md:flex-1 p-4">
-            <h1 class="text-4xl font-bold mb-4">Bible Buddy for Kids</h1>
+            <h1 class="text-4xl font-bold mb-4">AI Bible Assistant for Kids</h1>
             <h2 class="text-3xl mb-2">Learning from the Bible</h2>
             <p class="mb-4">The Bible has many stories that help us learn important lessons about how to be good people. These stories teach us about what is right and wrong, like a compass that shows us the right direction. In these stories, Jesus tells us about loving everyone and forgiving people, which are very special ways to care for others.</p>
             <p class="mb-4">Jesus's teachings help us understand how to be kind and nice to everyone, even when people are different from us. He shows us how to share love and kindness in a world where people sometimes disagree. By listening to what Jesus teaches, we can learn to bring people together, be caring, and make the world a better place for everyone.</p>
-            <!--<h2 class="text-3xl mb-2">Learning with Bible Buddy</h2>-->
-            <p class="mb-4 hidden" id="buddyMessage">Click the Buddy icon to start the conversation with Bible Buddy.</p>
-            <p class="mb-4" id="signInMessage">Start a conversation with Bible Buddy to learn about the Bible, explore Bible stories, and get answers to your questions about the scriptures. Discover the wisdom and teachings of the Bible in an engaging and interactive way!
-            </p>
-            <!--<p<a href="chat.html" id="chatLink" class="nav-link">Bible Buddy</a></p>-->
-            <br><br><br><br>
+            <p class="mb-4 hidden" id="buddyMessage">To start the conversation with Bible Buddy, download the Mobile App</p>
+            <p class="mb-4" id="signInMessage">Download the Mobile App to start a conversation with Bible Buddy, an AI Assistant to learn about the Bible, explore Bible stories, and get answers to your questions about the scriptures. Discover the wisdom and teachings of the Bible in an engaging and interactive way!</p>
+
+            <!-- App Download Icons -->
+            <h2 class="text-3xl mb-2">Download the App</h2>
+            <div class="download-icons">
+                <a href="https://play.google.com/store/apps/details?id=online.aibiblebuddy">
+                    <img src="images/android-icon.png" alt="Android Icon">
+                </a>
+                <a href="https://apps.apple.com/us/app/aibiblebuddy.online/id1234567890">
+                    <img src="images/ios-icon.png" alt="iOS Icon">
+                </a>
+            </div>
+
+            <!-- <br><br><br><br>
             <h2 class="text-3xl mb-2">Contact Us</h2>
-            <p class="mb-4" id="signInMessage"><p class="mb-4" id="contactMessage">You can contact us, share your feedback, and let us know how we can help make your experience better!</p> 
-            <p><a href="contacts.html" id="contactLink" class="nav-link">Contact Us</a></p>
+            <p class="mb-4" id="contactMessage">You can contact us, share your feedback, and let us know how we can help make your experience better!</p> 
+            <p><a href="contacts.html" id="contactLink" class="nav-link">Contact Us</a></p> -->
         </div>
         <div id="voiceflowChat" class="hidden">
             <script type="module">
-
                 import config from './scripts/config.js';
                 import { getCookie } from './scripts/auth.js';
-
-                // function loadVoiceflowChat() {
-                //     var v = document.createElement('script'), s = document.getElementsByTagName('script')[0];
-                //     v.onload = function() {
-                //         window.voiceflow.chat.load({
-                //             verify: { projectID: '65544493fa3da40007b1b812' },
-                //             url: 'https://general-runtime.voiceflow.com',
-                //             versionID: 'production'
-                //         });
-                //     }
-                //     v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; 
-                //     v.type = "text/javascript"; 
-                //     s.parentNode.insertBefore(v, s);
-                // }
-            
-                document.addEventListener("DOMContentLoaded",  function() {
-                    // Replace this with your actual logic to determine if the user is logged in
-
-                    let loggedUser;
-
-                    const envType = config.envType;
-                    console.log('Environment Type:', envType);
-
-                    if(envType === 'dev'){
-                        loggedUser = localStorage.getItem('loggedInUser');
-                        console.log('Storage loggedUser: ',loggedUser);
-                        console.log('Storage auth_token: ',getCookie('authToken'));
-                    } else {
-                        loggedUser  = getCookie('loggedInUser');
-                        console.log('Cookie loggedUser: ',loggedUser);
-                        console.log('Cookie auth_token: ',getCookie('authToken'));
-                    }
-
-
-                    // if (loggedUser) {
-                    //     loadVoiceflowChat();
-                    // }
-                });
 
                 document.addEventListener("DOMContentLoaded",  function() {
                     let loggedUser;
@@ -167,16 +149,11 @@
 
                     if (loggedUser) {
                         document.getElementById('loggedInUser').classList.remove('hidden');
-                        //document.getElementById('username').textContent = loggedUser;
                         document.getElementById('signInLink').classList.add('hidden');
                         document.getElementById('logoutLink').classList.remove('hidden');
                         document.getElementById('chatLink').classList.remove('hidden');
-                        //document.getElementById('storiesLink').classList.remove('hidden');
-                        //document.getElementById('contactsLink').classList.remove('hidden');
                         document.getElementById('buddyMessage').classList.remove('hidden');
                         document.getElementById('signInMessage').classList.add('hidden');
-                        //document.getElementById('subscribeSection').classList.remove('hidden');
-                        //loadVoiceflowChat();
                     }
                 });
 
@@ -189,39 +166,17 @@
                     }
 
                     document.getElementById('loggedInUser').classList.add('hidden');
-                    document.getElementById('username').textContent = '';
                     document.getElementById('signInLink').classList.remove('hidden');
                     document.getElementById('logoutLink').classList.add('hidden');
                     document.getElementById('chatLink').classList.add('hidden');
-                    //document.getElementById('storiesLink').classList.add('hidden');
-                    //document.getElementById('contactsLink').classList.add('hidden');
                     document.getElementById('buddyMessage').classList.add('hidden');
                     document.getElementById('signInMessage').classList.remove('hidden');
-                    //document.getElementById('subscribeSection').classList.add('hidden');
                 });
-
-                // document.getElementById('subscribeForm').addEventListener('submit', function(event) {
-                //     event.preventDefault();
-                //     var email = document.getElementById('emailInput').value;
-                //     if (validateEmail(email)) {
-                //         document.getElementById('subscribeMessage').classList.remove('hidden');
-                //         setTimeout(function() {
-                //             document.getElementById('subscribeMessage').classList.add('hidden');
-                //         }, 3000);
-                //     } else {
-                //         alert('Please enter a valid email address.');
-                //     }
-                // });
 
                 function validateEmail(email) {
                      var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     return re.test(String(email).toLowerCase());
                 }
-                // document.getElementById('nav-toggle').addEventListener('click', function() {
-                //     var menuLinks = document.getElementById('menuLinks');
-                //     menuLinks.classList.toggle('hidden');
-                // });
-
             </script>
         </div>
     </div>
@@ -237,7 +192,5 @@
     <footer class="bg-white-200 text-gray-400">
         &nbsp;&nbsp;&nbsp; &copy;2024 aibiblebuddy.online. All rights reserved.
     </footer>
-
-
 </body>
-</html>                    
+</html>

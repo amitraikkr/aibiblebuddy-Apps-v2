@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bible Buddy for Kids - Stories</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -44,21 +44,34 @@
             font-size: 1.2rem;
             margin-top: 20px;
         }
+        /* App download icons styles */
+        .download-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .download-icons img {
+            width: 180px;
+            height: 65px;
+        }
     </style>
 </head>
 <body>
     <!-- Navbar -->
     <nav class="flex justify-between items-center bg-gray-100 p-1">
         <a href="index.html"><span class="text-xl font-bold"><img src="images/mylogo.png" alt="Bible Buddy Logo" class="logo"></span></a>
-        <span id="loggedInUser" class="hidden"><!--<span id="username"></span>--></span>
+        <span id="loggedInUser" class="hidden"></span></span>
         <div id="menuLinks" class="flex flex-grow justify-end">
-            <a href="chat.html" class="nav-link" id="chatLink">Bible Buddy</a>
+            <a href="chat.html" class="nav-link hidden" id="chatLink">Bible Buddy</a>
             <a href="stories.html" class="nav-link" id="storiesLink">Stories</a>
-            <a href="contacts.html" class="nav-link hidden" id="contactsLink">Contact Us</a>
-            <a href="javascript:void(0)" id="signInLink" class="nav-link">Sign-In</a>
+            <a href="contacts.html" class="nav-link" id="contactsLink">Contact Us</a>
+            <a href="javascript:void(0)" id="signInLink" class="nav-link hidden">Sign-In</a>
             <a href="javascript:void(0)" id="logoutLink" class="nav-link hidden">Logout</a>
+            <a href="fags_page.html" id="faqsLink" class="nav-link">FAQs</a>
         </div>
     </nav>
+
 
     <!-- Stories Section -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
@@ -114,12 +127,21 @@
         </div>
     </div>
 
-    <div id="loginMessage" class="login-message">For more stories, please login <a href="javascript:void(0)" id="signInLinkText" class="nav-link">Sign-In</a></div>
+    <div id="loginMessage" class="login-message">For more stories, please login
+    <h2 class="text-3xl mb-2">Download the App</h2>
+    <div class="download-icons">
+        <a href="https://play.google.com/store/apps/details?id=online.aibiblebuddy">
+            <img src="images/android-icon.png" alt="Android Icon">
+        </a>
+        <a href="https://apps.apple.com/us/app/aibiblebuddy.online/id1234567890">
+            <img src="images/ios-icon.png" alt="iOS Icon">
+        </a>
+    </div>
+    </div>
 
     <footer class="bg-white-200 text-gray-400">
         &nbsp;&nbsp;&nbsp; &copy;2024 aibiblebuddy.online. All rights reserved.
     </footer>
-
 
     <script type="module">
         import config from './scripts/config.js';

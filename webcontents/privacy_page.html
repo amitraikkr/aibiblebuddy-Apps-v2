@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Bible Buddy for Kids</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        h1, h2, a {
+            color: #b37d00;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .logo {
+            width: 70px; 
+            height: 70px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+        }
+        .nav-link {
+            background-color: #b37d00; 
+            color: white; 
+            padding: 10px 15px; 
+            margin-left: 10px; 
+            border-radius: 5px; 
+        }
+        .nav-link:hover {
+            background-color: #865c00; 
+        }
+        .privacy-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .section-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #b37d00;
+            margin-top: 24px;
+        }
+        .section-text {
+            font-size: 18px;
+            color: #333;
+            line-height: 1.5;
+            margin-top: 12px;
+        }
+        .contact-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 24px;
+        }
+        .contact-button button {
+            background-color: #b37d00;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .contact-button button:hover {
+            background-color: #865c00;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="flex justify-between items-center bg-gray-100 p-1">
+        <a href="index.html"><span class="text-xl font-bold"><img src="images/mylogo.png" alt="Bible Buddy Logo" class="logo"></span></a>
+        <span id="loggedInUser" class="hidden"></span></span>
+        <div id="menuLinks" class="flex flex-grow justify-end">
+            <a href="chat.html" class="nav-link hidden" id="chatLink">Bible Buddy</a>
+            <a href="stories.html" class="nav-link" id="storiesLink">Stories</a>
+            <a href="contacts.html" class="nav-link" id="contactsLink">Contact Us</a>
+            <a href="javascript:void(0)" id="signInLink" class="nav-link hidden">Sign-In</a>
+            <a href="javascript:void(0)" id="logoutLink" class="nav-link hidden">Logout</a>
+            <a href="fags_page.html" id="faqsLink" class="nav-link">FAQs</a>
+        </div>
+    </nav>
+
+
+    <!-- Privacy Policy Section -->
+    <div class="privacy-section">
+        <h1 class="text-4xl font-bold text-center mb-4">Privacy Policy</h1>
+        <p class="text-center text-gray-600 mb-8">Effective Date: August 2024</p>
+        
+        <h2 class="section-title">1. Introduction</h2>
+        <p class="section-text">
+            Welcome to AI Bible Assistant for Kids. We value your privacy and are committed to protecting your personal information.
+        </p>
+        
+        <h2 class="section-title">2. Information We Collect</h2>
+        <p class="section-text">
+            We may collect the following information:<br><br>
+            • Email Address: For authentication and account recovery.<br>
+            • Name: For personalization.<br>
+            • Password: Securely encrypted for account access.
+        </p>
+
+        <h2 class="section-title">3. How We Use Your Information</h2>
+        <p class="section-text">
+            We use your information to:<br><br>
+            • Maintain the App’s functionality.<br>
+            • Personalize your experience.<br>
+            • Send important updates.
+        </p>
+
+        <h2 class="section-title">4. Data Security</h2>
+        <p class="section-text">
+            We implement security measures to protect your data. While no system is completely secure, we strive to protect your information.
+        </p>
+
+        <h2 class="section-title">5. Third-Party Services</h2>
+        <p class="section-text">
+            We do not share your information with third parties, except as necessary to provide our services or comply with the law.
+        </p>
+
+        <h2 class="section-title">6. Changes to This Privacy Policy</h2>
+        <p class="section-text">
+            We may update this Privacy Policy periodically. We will notify you of significant changes by posting the new Privacy Policy within the App.
+        </p>
+
+        <h2 class="section-title">7. Contact Us</h2>
+        <p class="section-text">
+            If you have any questions about this Privacy Policy, please contact us.
+        </p>
+
+        <!-- <div class="contact-button">
+            <button onclick="location.href='contacts.html'">Contact Us</button>
+        </div> -->
+    </div>
+
+    <footer class="bg-white-200 text-gray-400 text-center mt-12 p-4">
+        &nbsp;&nbsp;&nbsp; &copy;2024 aibiblebuddy.online. All rights reserved.
+    </footer>
+
+    <script type="module">
+        import config from './scripts/config.js';
+        import { getCookie } from './scripts/auth.js';
+
+        document.addEventListener("DOMContentLoaded", function() {
+            let loggedUser;
+            if(config.envType === 'dev'){
+                loggedUser = localStorage.getItem('loggedInUser');
+            } else { 
+                loggedUser = getCookie('loggedInUser');
+            }
+
+            if (loggedUser) {
+                document.getElementById('loggedInUser').classList.remove('hidden');
+                document.getElementById('signInLink').classList.add('hidden');
+                document.getElementById('logoutLink').classList.remove('hidden');
+                document.getElementById('chatLink').classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

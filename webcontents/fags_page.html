@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs - Bible Buddy for Kids</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        h1, h2, a {
+            color: #b37d00;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .logo {
+            width: 70px; 
+            height: 70px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+        }
+        .nav-link {
+            background-color: #b37d00; 
+            color: white; 
+            padding: 10px 15px; 
+            margin-left: 10px; 
+            border-radius: 5px; 
+        }
+        .nav-link:hover {
+            background-color: #865c00; 
+        }
+        .faq-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .faq-item {
+            padding: 16px;
+            background-color: #f3f3f3;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .faq-question {
+            font-size: 18px;
+            font-weight: bold;
+            color: #b37d00;
+        }
+        .faq-answer {
+            font-size: 16px;
+            color: #333;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+        .faq-link {
+            color: #b37d00;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="flex justify-between items-center bg-gray-100 p-1">
+        <a href="index.html"><span class="text-xl font-bold"><img src="images/mylogo.png" alt="Bible Buddy Logo" class="logo"></span></a>
+        <span id="loggedInUser" class="hidden"></span></span>
+        <div id="menuLinks" class="flex flex-grow justify-end">
+            <a href="chat.html" class="nav-link hidden" id="chatLink">Bible Buddy</a>
+            <a href="stories.html" class="nav-link" id="storiesLink">Stories</a>
+            <a href="contacts.html" class="nav-link" id="contactsLink">Contact Us</a>
+            <a href="javascript:void(0)" id="signInLink" class="nav-link hidden">Sign-In</a>
+            <a href="javascript:void(0)" id="logoutLink" class="nav-link hidden">Logout</a>
+            <a href="faqs_page.html" id="faqsLink" class="nav-link">FAQs</a>
+        </div>
+    </nav>
+
+    <!-- FAQs Section -->
+    <div class="faq-section">
+        <h1 class="text-4xl font-bold text-center mb-8">FAQs</h1>
+        
+        <div class="faq-item">
+            <p class="faq-question">What is AI Bible Assistant for Kids?</p>
+            <p class="faq-answer">AI Bible Assistant for Kids is an interactive mobile app designed to help children learn about the Bible in a fun and engaging way.</p>
+        </div>
+        
+        <div class="faq-item">
+            <p class="faq-question">How do I reset my password?</p>
+            <p class="faq-answer">You can reset your password by going to the login page and tapping on 'Forgot Password?'. Follow the instructions to reset your password.</p>
+        </div>
+        
+        <div class="faq-item">
+            <p class="faq-question">Is my data secure?</p>
+            <p class="faq-answer">Yes, we prioritize your data security. We encrypt all personal information and do not share it with third parties.</p>
+        </div>
+        
+        <div class="faq-item">
+            <p class="faq-question">How can I contact support?</p>
+            <p class="faq-answer">You can contact support by emailing us at support@aibiblebuddy.com or by using the contact form within the app.</p>
+        </div>
+        
+        <div class="faq-item">
+            <p class="faq-question">Can I use the app without an internet connection?</p>
+            <p class="faq-answer">Some features of the app require an internet connection, but many stories and activities can be accessed offline once downloaded.</p>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-question">Where can I read the Privacy Policy?</p>
+            <p class="faq-answer">You can read our Privacy Policy by clicking <a href="privacy_page.html" class="faq-link">here</a>.</p>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-question">Who are we?</p>
+            <p class="faq-answer">You can learn more about our team and mission by reading our <a href="about_page.html" class="faq-link">About Us</a> page.</p>
+        </div>
+    </div>
+
+    <footer class="bg-white-200 text-gray-400 text-center mt-12 p-4">
+        &nbsp;&nbsp;&nbsp; &copy;2024 aibiblebuddy.online. All rights reserved.
+    </footer>
+
+    <script type="module">
+        import config from './scripts/config.js';
+        import { getCookie } from './scripts/auth.js';
+
+        document.addEventListener("DOMContentLoaded", function() {
+            let loggedUser;
+            if(config.envType === 'dev'){
+                loggedUser = localStorage.getItem('loggedInUser');
+            } else { 
+                loggedUser = getCookie('loggedInUser');
+            }
+
+            if (loggedUser) {
+                document.getElementById('loggedInUser').classList.remove('hidden');
+                document.getElementById('signInLink').classList.add('hidden');
+                document.getElementById('logoutLink').classList.remove('hidden');
+                document.getElementById('chatLink').classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
