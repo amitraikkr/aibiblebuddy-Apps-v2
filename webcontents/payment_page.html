@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate - Bible Buddy for Kids</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f4f8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        h1, h2, a {
+            color: #b37d00;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .nav-link {
+            background-color: #b37d00;
+            color: white;
+            padding: 10px 15px;
+            margin-left: 10px;
+            border-radius: 5px;
+        }
+
+        .nav-link:hover {
+            background-color: #865c00;
+        }
+
+        .donation-section {
+            margin-top: 50px;
+            padding: 30px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .donation-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .carousel-item {
+            padding: 20px 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid #ff9800;
+            margin-right: 15px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #ff9800;
+            font-weight: bold;
+            flex: 1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            height: 100px;
+            width: 100px;
+        }
+
+        .carousel-item:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .carousel-item.active {
+            background-color: #ff9800;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .carousel-item span {
+            display: block;
+            font-size: 0.75rem;
+            color: #333;
+            margin-top: 5px;
+        }
+
+        .carousel {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .submit-button {
+            background-color: #b37d00;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 30px;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #865c00;
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar
+    <nav class="flex justify-between items-center bg-gray-100 p-1">
+        <a href="index.html"><span class="text-xl font-bold"><img src="images/mylogo.png" alt="Bible Buddy Logo" class="logo"></span></a>
+        <div id="menuLinks" class="flex flex-grow justify-end">
+            <a href="chat.html" class="nav-link hidden" id="chatLink">Bible Buddy</a>
+            <a href="stories.html" class="nav-link" id="storiesLink">Stories</a>
+            <a href="contacts.html" class="nav-link" id="contactsLink">Contact Us</a>
+            <a href="fags_page.html" id="faqsLink" class="nav-link">FAQs</a>
+        </div>
+    </nav> -->
+
+    <!-- Donation Section -->
+    <div class="container mx-auto p-4 donation-section">
+        <h2 class="text-3xl font-bold mb-4">Thank You For Supporting Us</h2>
+        <p class="mb-4">Choose an amount to donate:</p>
+
+        <div class="carousel">
+            <div class="carousel-item" data-price-id="price_1PnJZCDUZOdijp89dF8Q6XNd">$2 <span>CAD</span></div>
+            <div class="carousel-item" data-price-id="price_1Pg0R2DUZOdijp89xOZS7yEt">$5 <span>CAD</span></div>
+            <div class="carousel-item" data-price-id="price_1PnJafDUZOdijp89Ais0q0Km">$10 <span>CAD</span></div>
+        </div>
+
+        <button id="donateButton" class="submit-button">Donate</button>
+    </div>
+
+    <footer class="bg-white-200 text-gray-400 mt-10 p-4">
+        &nbsp;&nbsp;&nbsp; &copy;2024 aibiblebuddy.online. All rights reserved.
+    </footer>
+
+    <script>
+        const stripe = Stripe('pk_live_51Pg09wDUZOdijp89Hr4MnF7FEr5DToaaoucFPplnGxacJ4OntLn2xCq0KOKJDGaBebM2XedFswkZvBPT6PSNDOJM00wXau0mSu'); // Replace with your Stripe publishable key
+        let selectedPriceId = null;
+
+        document.querySelectorAll('.carousel-item').forEach(item => {
+            item.addEventListener('click', function () {
+                document.querySelectorAll('.carousel-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                selectedPriceId = this.getAttribute('data-price-id');
+            });
+        });
+
+        document.getElementById('donateButton').addEventListener('click', async () => {
+            if (selectedPriceId) {
+                try {
+                    const { error } = await stripe.redirectToCheckout({
+                        lineItems: [{
+                            price: selectedPriceId,
+                            quantity: 1,
+                        }],
+                        mode: 'payment',
+                        successUrl: window.location.origin + '/success.html',
+                        cancelUrl: window.location.origin + '/cancel.html',
+                    });
+
+                    if (error) {
+                        console.error('Error redirecting to Stripe Checkout:', error);
+                    }
+                } catch (err) {
+                    console.error('Unexpected error:', err);
+                }
+            } else {
+                alert('Please select a donation amount.');
+            }
+        });
+    </script>
+</body>
+
+</html>

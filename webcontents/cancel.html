@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Cancelled - Bible Buddy for Kids</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f4f8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        h1, h2, a {
+            color: #b37d00;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .nav-link {
+            background-color: #b37d00;
+            color: white;
+            padding: 10px 15px;
+            margin-left: 10px;
+            border-radius: 5px;
+        }
+
+        .nav-link:hover {
+            background-color: #865c00;
+        }
+
+        .message-section {
+            margin-top: 50px;
+            padding: 30px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .message-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #dc3545;
+        }
+
+        .message-section p {
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .close-button {
+            background-color: #b37d00;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 30px;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .close-button:hover {
+            background-color: #865c00;
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar
+    <nav class="flex justify-between items-center bg-gray-100 p-1">
+        <a href="#"><span class="text-xl font-bold"><img src="images/mylogo.png" alt="Bible Buddy Logo" class="logo"></span></a>
+        <div id="menuLinks" class="flex flex-grow justify-end">
+            <a href="chat.html" class="nav-link hidden" id="chatLink">Bible Buddy</a>
+            <a href="stories.html" class="nav-link" id="storiesLink">Stories</a>
+            <a href="contacts.html" class="nav-link" id="contactsLink">Contact Us</a>
+            <a href="fags_page.html" id="faqsLink" class="nav-link">FAQs</a>
+        </div>
+    </nav> -->
+
+    <!-- Cancel Message Section -->
+    <div class="container mx-auto p-4 message-section">
+        <h2 class="text-3xl font-bold mb-4">Payment Cancelled</h2>
+        <p>Your payment was not completed. You can try again or close this window.</p>
+        <button class="close-button" onclick="window.close()">Close</button>
+    </div>
+
+    <footer class="bg-white-200 text-gray-400 mt-10 p-4">
+        &nbsp;&nbsp;&nbsp; &copy;2024 aibiblebuddy.online. All rights reserved.
+    </footer>
+</body>
+
+</html>
